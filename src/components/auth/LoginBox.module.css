@@ -1,0 +1,9 @@
+.muiRootCardContent, .muiRootCardActions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.muiRootFormControl {
+    margin: 5px !important;
+}
