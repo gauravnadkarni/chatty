@@ -1,5 +1,5 @@
 import GenericObject from "@/types/generic-object";
-import HttpHandler from "@/utilities"
+import HttpHandler from "@/utilities/http-handler"
 
 export default class AuthService {
 
