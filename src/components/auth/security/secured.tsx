@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
-import Loader from "../../utility/loader";
+import Loader from "../../utilities/loader";
 import { useSession } from "next-auth/react";
 
 
