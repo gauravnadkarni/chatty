@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import Loader from "../../utilities/loader";
 import { useSession } from "next-auth/react";
+import withAuth from "../security/with-auth";
 
 
 type SecuredProps = {
@@ -10,23 +11,7 @@ type SecuredProps = {
 };
 
 const Secured:NextPage<PropsWithChildren<SecuredProps>>= (props:PropsWithChildren<SecuredProps>) => {
-    const {data:session} = useSession();
-    const router = useRouter();
-    const [isSignedIn, setSignedIn] = useState<boolean>(false);
-    useEffect(()=>{
-        if(session) {
-            setSignedIn(true);
-        } else {
-            router.replace("/");
-        }
-    },[]);
-
-
-    if(isSignedIn === true) {
-        return <Fragment>{props.children}</Fragment>
-    } 
-
-    return (<Loader varient="indeterminate" color="primary" />);
+    return <Fragment>{props.children}</Fragment>
 }
 
-export default Secured
+export default withAuth(Secured);

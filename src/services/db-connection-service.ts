@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import ENVIRONMENT_CONSTANTS from '../configurations/constants';
+import DatabaseConnectionError from '@/errors/database-connection-error';
 
 let cached = global as typeof globalThis & { 
     mongoose:{ conn: typeof mongoose | null , promise: Promise<typeof mongoose>|null }
@@ -17,8 +18,9 @@ async function dbConnect() {
   const MONGODB_URI:string|undefined = ENVIRONMENT_CONSTANTS.MONGODB_URI;
 
   if (!MONGODB_URI) {
-    throw new Error(
-      'Please define the MONGODB_URI environment variable inside .env.local'
+    throw new DatabaseConnectionError(
+      'Please define the MONGODB_URI environment variable inside .env.local',
+      500
     )
   }
 
@@ -41,4 +43,14 @@ async function dbConnect() {
   return cached.mongoose.conn
 }
 
-export default dbConnect
+async function dbDisconnect() {
+  if(cached.mongoose.conn) {
+    cached.mongoose.conn.disconnect();
+  }
+  cached.mongoose = { conn: null, promise: null };
+}
+
+export default {
+  dbConnect, 
+  dbDisconnect
+}

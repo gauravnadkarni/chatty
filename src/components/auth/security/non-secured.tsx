@@ -4,29 +4,14 @@ import { NextRouter, useRouter } from "next/router";
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import Loader from "../../utilities/loader";
 import { useSession } from "next-auth/react";
+import withNoAuth from "../security/with-noauth";
 
 type NonSecuredProps = {
     children: React.ReactNode; // 👈️ type children
 };
 
 const NonSecured:NextPage<PropsWithChildren<NonSecuredProps>> = (props:PropsWithChildren<NonSecuredProps>) => {
-    const {data:session} = useSession();
-    const router = useRouter();
-    const [isSignedIn, setSignedIn] = useState<boolean>(true);
-    useEffect(()=>{
-        if(session) {
-            router.replace("/dashboard");
-        } else {
-            setSignedIn(false);
-        }
-    },[]);
-
-
-    if(isSignedIn === false) {
-        return <Fragment>{props.children}</Fragment>
-    } 
-
-    return (<Loader varient="indeterminate" color="primary" />);
+    return <Fragment>{props.children}</Fragment>
 }
 
-export default NonSecured
+export default withNoAuth(NonSecured);
