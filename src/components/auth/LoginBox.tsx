@@ -66,7 +66,6 @@ const LoginBox:NextPage = () => {
             redirect:false,
             callbackUrl: "/dashboard",
         }).then((res:SignInResponse | undefined)=> {
-            console.log("here", res)
             if(res !== undefined) {
                 if(res.ok === true) {
                     if(res.url) {

@@ -2,7 +2,7 @@ import ThunkAPI from "../../../types/thunk-api";
 import { AppState } from "../../../store";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
-import AuthService from "@/services/auth";
+import UserService from "@/services/user";
 import GenericObject from "@/types/generic-object";
 
 // Type for our state
@@ -23,10 +23,10 @@ const initialState: AuthState = {
     }
 };
 
-export const signInCall = createAsyncThunk(
+/*export const signInCall = createAsyncThunk(
   'auth/signIn',
   async (signInInfo:{username:string, password:string}, thunkAPI:ThunkAPI) => {
-    const authService:AuthService = new AuthService();
+    const authService:UserService = new UserService();
     const data = await authService.signIn(signInInfo);
     return data;
   }
@@ -35,11 +35,11 @@ export const signInCall = createAsyncThunk(
 export const signInCheckCall = createAsyncThunk(
   'auth/checksignIn',
   async (data: GenericObject, thunkAPI:ThunkAPI) => {
-    const authService:AuthService = new AuthService();
+    const authService:UserService = new UserService();
     const res = await authService.checkSignIn(data);
     return res;
   }
-)
+)*/
 
 // Actual Slice
 export const authSlice = createSlice({
