@@ -23,13 +23,15 @@ const PROVIDERS =  [
       if(!credentials) {
         throw new AppAuthenticationError("Invalid credentials supplied", 401);
       }
+
       const userService = new UserService(new UserRepository());
       const user = await userService.getUserByUsernameAndPassword(credentials.email,credentials.password);
       if (user) {
         // Any object returned will be saved in `user` property of the JWT
         return {
           email: user.email,
-          id: user._id
+          id: user._id,
+          name: user.fullName
         }
       } else {
         // If you return null then an error will be displayed advising the user to check their details.
